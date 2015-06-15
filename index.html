@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+    <title>My Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="jquery/jquery.mobile-1.4.5.min.css">
+    <script src="jquery/jquery-1.11.3.min.js"></script>
+    <script src="jquery/jquery.mobile-1.4.5.min.js"></script>
+    <script src="main.js"></script>
+          
+</head>
+<body>
+ <div data-role="page" id="main">
+    <div data-role="header">
+       <h1>MobileWeather</h1>
+
+        <button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-btn-icon-notext ui-icon-location">location</button>
+       <a href="#add" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-plus ui-btn-icon-notext"></a>
+
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+        <form>
+    <input id="filter-for-listview" data-type="search" placeholder="Type to search...">
+</form>
+<ul data-role="listview" data-inset="true" data-filter="true" data-input="#filter-for-listview">
+    <li><h1>New York</h1><h2>19°</h2></li>
+</ul>
+    </div><!-- /content -->
+
+</div><!-- /page -->
+
+<!-- Start of second page -->
+<div data-role="page" id="add">
+
+    <div data-role="header">
+        <h1>Add Location</h1>
+        <a href="#foo">Back to foo</a>
+    </div><!-- /header -->
+
+<div role="main" class="ui-content">
+    <label for="searchLocation">Search Input:</label>
+    <input type="text" name="search" id="searchLocation" value="" />
+    <ul id="searchResults">
+
+    </ul>
+</div><!-- /content -->
+
+</div><!-- /page -->
+</body>
+</html>
