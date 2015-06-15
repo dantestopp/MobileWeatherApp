@@ -23,8 +23,7 @@
         <form>
     <input id="filter-for-listview" data-type="search" placeholder="Type to search...">
 </form>
-<ul data-role="listview" data-inset="true" data-filter="true" data-input="#filter-for-listview">
-    <li><h1>New York</h1><h2>19°</h2></li>
+<ul data-role="listview" id="locationList" data-inset="true" data-filter="true" data-input="#filter-for-listview">
 </ul>
     </div><!-- /content -->
 
@@ -35,15 +34,25 @@
 
     <div data-role="header">
         <h1>Add Location</h1>
-        <a href="#foo">Back to foo</a>
+        <a href="#main">Back to foo</a>
     </div><!-- /header -->
 
 <div role="main" class="ui-content">
     <label for="searchLocation">Search Input:</label>
     <input type="text" name="search" id="searchLocation" value="" />
-    <ul id="searchResults">
+    <ul data-role="listview" id="searchResults"></ul>
+</div><!-- /content -->
 
-    </ul>
+</div><!-- /page -->
+<div data-role="page" id="detail">
+
+    <div data-role="header">
+        <h1>Add Location</h1>
+        <a href="#main">Back to foo</a>
+    </div><!-- /header -->
+
+<div role="main" class="ui-content">
+    <h1 id="locationId"></h1>
 </div><!-- /content -->
 
 </div><!-- /page -->
