@@ -1,4 +1,5 @@
 $(document).ready(function(){
+ 	window.location.hash = "main";
 	var source   = $("#mainListItem").html();
 	var mainListItem = Handlebars.compile(source);
 	source = $("#detailPage").html();
@@ -26,9 +27,10 @@ $(document).ready(function(){
 		}
 		});
 	});
-	$("#main").ready(function(){
+	$("#main").on('pagebeforeshow',function(){
 		if(typeof(localStorage["locations"]) !== "undefined") {
 	    	var locations = JSON.parse(localStorage["locations"]);
+	    	$("#locationList").empty();
 	    	$.each(locations,function(k,v){
 	    		var data = JSON.parse(localStorage[v]);
 	    		console.log(data);
@@ -46,7 +48,6 @@ $(document).ready(function(){
 		var fL = localStorage['foundLocation'];
 		delete localStorage['foundLocation'];
 		if(localStorage[fL] == null){
-			console.log("Ajax");
 			$.ajax({
 				url: "http://api.openweathermap.org/data/2.5/forecast/daily?id="+fL+"&mode=json&units=metric&cnt=5&APPID="+api,
 				dataType: 'JSON',
