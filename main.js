@@ -63,7 +63,7 @@ $(document).ready(function(){
 			delete localStorage.detailAddButton;
 			$("#detailheader").append('<a id="detailAddButton" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-plus ui-btn-icon-notext"></a>');
 			$("#detailAddButton").click(function(){
-				if(!$.isArray(localStorage.locations))
+				if(typeof(localStorage.locations) === "undefined" || localStorage.locations.length <= 0)
 					localStorage.locations = JSON.stringify(new Array());
 				var j = JSON.parse(localStorage.locations);
 				j.push(data.city.id);
@@ -93,6 +93,7 @@ $(document).ready(function(){
 			}).done(function(d){
 				localStorage[d.city.id] = JSON.stringify(d);
 				localStorage.foundLocation = d.city.id;
+				localStorage.detailAddButton = true;
 				window.location = '#detail';
 			});
     	}, function(e){
