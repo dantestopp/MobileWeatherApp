@@ -53,3 +53,35 @@
 	justify-content: center;
 	opacity: 1;
 }
+.dayTemp{
+	float: left;
+	height: 100%;
+	width: 30%;
+	display: flex;
+	align-items: center;
+	justify-content: left;
+	font-size: 9px;
+	opacity: 1;
+}
+.dayName{
+	float: left;
+	height: 100%;
+	width: 40%;
+	display: flex;
+	align-items: center;
+	justify-content: left;
+	font-size: 9px;
+	opacity: 1;
+}
+.dayImg{
+	float: left;
+	height: 100%;
+	width: 30%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 1;
+}
+.day{
+	clear: both;
+}

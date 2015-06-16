@@ -7,6 +7,7 @@
 		<script src="jquery/jquery-1.11.3.min.js"></script>
 		<script src="jquery/jquery.mobile-1.4.5.min.js"></script>
 		<script src="jquery/handlebars-v3.0.3.js"></script>
+		<script src="jquery/pullToRefresh.js"></script>
 		<link rel="stylesheet" type="text/css" href="indexStyle.css">
 		<script src="main.js"></script>
 			  
@@ -21,14 +22,32 @@
 					<h1>{{city.name}}</h1>
 				</div>
 				<div class="listItemTemp">
-					{{list.0.temp.day}}&deg;C 
+					{{temp list.0.temp.day}}
 				</div>
 			</div>
 		</script>
 		<script id="detailPage" type="text/x-handlebars-template">
 			<h1>{{city.name}}</h1>
-			<h2>{{list.0.temp.min}}</h2>
-			<h2>{{list.0.temp.max}}</h2>
+			<h2>{{temp list.0.temp.max}}</h2>
+			<h2>{{temp list.0.temp.min}}</h2>
+			<div id="days">
+				{{#each list}}
+					<div class="day">
+						<div class="dayName">
+							<h1>{{date this.dt}}</h1>
+						</div>
+						<div class="dayTemp">
+							<h2>{{temp this.temp.day}}</h2>
+						</div>
+						<div class="dayImg">
+							<img src="http://openweathermap.org/img/w/{{this.weather.0.icon}}.png">
+						</div>
+
+					</div>
+
+				{{/each}}
+
+			</div>
 		</script>
 		<div data-role="page" id="main">
 			<div data-role="header">
@@ -51,7 +70,7 @@
 		<div data-role="page" id="add">
 			<div data-role="header">
 				<h1>Add Location</h1>
-				<a href="#main" class="ui-btn ui-icon-carat-l ui-btn-icon-left ui-btn-icon-notext"></a>
+				<a href="#main" class="ui-btn ui-icon-carat-l ui-shadow ui-corner-all ui-btn-icon-left ui-btn-icon-notext"></a>
 			</div><!-- /header -->
 
 			<div role="main" class="ui-content">
@@ -67,7 +86,7 @@
 
 			<div id="detailheader" data-role="header">
 				<h1>Location</h1>
-				<a href="#main" class="ui-btn ui-icon-carat-l ui-btn-icon-left ui-btn-icon-notext"></a>
+				<a href="#main" class="ui-btn ui-icon-carat-l ui-shadow ui-corner-all ui-btn-icon-left ui-btn-icon-notext"></a>
 			</div><!-- /header -->
 
 			<div role="main" class="ui-content">
