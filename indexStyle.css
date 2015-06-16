@@ -85,3 +85,6 @@
 .day{
 	clear: both;
 }
+#yesSearch{
+	text-decoration: underline;
+}

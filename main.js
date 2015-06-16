@@ -5,6 +5,8 @@ $(document).ready(function(){
 	source = $("#detailPage").html();
 	var detailPage = Handlebars.compile(source);
 	var api = "c7d8ac7641d0dd28540a2ec9fc2eb571";
+
+
 	$("#add").ready(function(){
 		$("#searchLocation").keypress(function(e) {
 			 if(e.which == 13) {
@@ -27,6 +29,16 @@ $(document).ready(function(){
 		}
 		});
 	});
+	$("#add").on('pagebeforeshow',function(){
+		if(typeof(localStorage.search) !== "undefined"){
+			var val = localStorage.search;
+			delete localStorage.search;
+			$("#searchLocation").val(val);
+			var e = jQuery.Event("keypress");
+			e.which = 13;
+			$("#searchLocation").trigger(e);
+		}
+	});
 	$("#main").on('pagebeforeshow',function(){
 		if(typeof(localStorage["locations"]) !== "undefined") {
 	    	var locations = JSON.parse(localStorage["locations"]);
@@ -36,7 +48,7 @@ $(document).ready(function(){
 	    		console.log(data);
 	    		$("#locationList").append(mainListItem(data));
 	    	});
-	    } else {
+	    	} else {
 		    $("#locationList").html("<h1>No Locations</h1>");
 		}
 	});
@@ -77,9 +89,10 @@ $(document).ready(function(){
 		$("#detail > .ui-content").html(detailPage(data));
 	});
   	$('#locationList').on('click', 'div', function() {
-		console.log("click");
-		localStorage.foundLocation = $(this).attr('id');
-		window.location ='#detail';
+  		if($(this).attr('id')!== "no-results"){
+			localStorage.foundLocation = $(this).attr('id');
+			window.location ='#detail';
+		}
     });
     $("#locationList").on( "taphold", 'div', function(e){
     	e.preventDefault();
@@ -130,4 +143,16 @@ $(document).ready(function(){
     Handlebars.registerHelper('temp',function(object){
     	return new Handlebars.SafeString(object+"&deg;C");
     });
+    $("#locationList").on( "filterablefilter", function( event, ui ) {
+        if ($(this).children(':visible').not('#no-results').length === 0) {
+            $("#locationList").append('<li id="no-results">No Locations found.	Would you like to Search in the global Location list? <span id="yesSearch">Yes</span></li>').fadeIn(500);
+        } else {
+            $('#no-results').remove().fadeIn(250);
+        }
+    });
+    $(document).on('click','#yesSearch',function(){
+		var val = $("#filter-for-listview").val();
+		localStorage.search = val;
+		window.location = '#add';
+	});    
 });
