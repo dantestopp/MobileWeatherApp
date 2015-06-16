@@ -32,7 +32,7 @@ $(document).ready(function(){
 	    	$.each(locations,function(k,v){
 	    		var data = JSON.parse(localStorage[v]);
 	    		console.log(data);
-	    	$("#locationList").append(mainListItem(data));
+	    		$("#locationList").append(mainListItem(data));
 	    	});
 	    } else {
 		    $("#locationList").html("<h1>No Locations</h1>");
@@ -52,9 +52,6 @@ $(document).ready(function(){
 				dataType: 'JSON',
 				method: "GET"
 			}).done(function(d){
-				$.each(d.list,function(k,v){
-					v.temp.day = Math.floor(v.temp.day);
-				});
 				localStorage[d.city.id] = JSON.stringify(d);
 				data = d;
 			});
@@ -62,7 +59,6 @@ $(document).ready(function(){
 				data = JSON.parse(localStorage[fL]);
 		}
 
-			console.log(localStorage.detailAddButton);
 		if(localStorage.detailAddButton){
 			delete localStorage.detailAddButton;
 			$("#detailheader").append('<a id="detailAddButton" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-plus ui-btn-icon-notext"></a>');
@@ -74,12 +70,15 @@ $(document).ready(function(){
 		}
 		
 		console.log(data);
-		$("#detail > .ui-content").append(detailPage(data));
+		$("#detail > .ui-content").html(detailPage(data));
 	});
   	$('#locationList').on('click', 'li', function() {
 		console.log("click");
 		localStorage.foundLocation = $(this).attr('id');
 		window.location ='#detail';
     });
+    $("#locationList").on( "taphold", 'li', function(){
+    	console.log("taphold");
+    }); 
 
 });
