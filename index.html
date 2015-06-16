@@ -11,6 +11,15 @@
           
 </head>
 <body>
+<script id="mainListItem" type="text/x-handlebars-template">
+  <li><div>
+    <h1>{{city.name}}</h1>
+    <div>
+      {{list.0.temp.day}}
+    </div>
+  </div>
+  </li>
+</script>
  <div data-role="page" id="main">
     <div data-role="header">
        <h1>MobileWeather</h1>

@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	var source   = $("#mainListItem").html();
+	var mainListItem = Handlebars.compile(source);
 	var api = "c7d8ac7641d0dd28540a2ec9fc2eb571";
 	$("#add").ready(function(){
 		$("#searchLocation").keypress(function(e) {
@@ -27,7 +29,8 @@ $(document).ready(function(){
 	    	var locations = JSON.parse(localStorage["locations"]);
 	    	$.each(locations,function(k,v){
 	    		var data = JSON.parse(localStorage[v]);
-	    	$("#locationList").append("<li><h1>"+data.city.name+"</h1><h2>"+data.temp+"</h2></li>");
+	    		console.log(data);
+	    	$("#locationList").append(mainListItem(data));
 	    	});
 	    } else {
 		    $("#locationList").html("<h1>No Locations</h1>");
@@ -47,6 +50,9 @@ $(document).ready(function(){
 				dataType: 'JSON',
 				method: "GET"
 			}).done(function(d){
+				$.each(d.list,function(k,v){
+					v.temp.day = Math.floor(v.temp.day);
+				});
 				localStorage[d.city.id] = JSON.stringify(d);
 				data = d;
 			});
