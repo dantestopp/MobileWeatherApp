@@ -74,12 +74,12 @@ $(document).ready(function(){
 		console.log(data);
 		$("#detail > .ui-content").html(detailPage(data));
 	});
-  	$('#locationList').on('click', 'li', function() {
+  	$('#locationList').on('click', 'div', function() {
 		console.log("click");
 		localStorage.foundLocation = $(this).attr('id');
 		window.location ='#detail';
     });
-    $("#locationList").on( "taphold", 'li', function(e){
+    $("#locationList").on( "taphold", 'div', function(e){
     	e.preventDefault();
     	$("#addLocation").replaceWith("<button class='ui-btn ui-icon-delete ui-btn-icon-left ui-btn-icon-notext'></button>");
     	return false;
