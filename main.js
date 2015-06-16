@@ -79,8 +79,25 @@ $(document).ready(function(){
 		localStorage.foundLocation = $(this).attr('id');
 		window.location ='#detail';
     });
-    $("#locationList").on( "taphold", 'li', function(){
-    	console.log("taphold");
+    $("#locationList").on( "taphold", 'li', function(e){
+    	e.preventDefault();
+    	$("#addLocation").replaceWith("<button class='ui-btn ui-icon-delete ui-btn-icon-left ui-btn-icon-notext'></button>");
+    	return false;
     }); 
+    $("#locateMe").click(function(){
+    	navigator.geolocation.getCurrentPosition(function(p){
+    		$.ajax({
+				url: "http://api.openweathermap.org/data/2.5/forecast/daily?lat="+p.coords.latitude+"&lon="+p.coords.longitude+"&mode=json&units=metric&cnt=5&APPID="+api,
+				dataType: 'JSON',
+				method: "GET"
+			}).done(function(d){
+				localStorage[d.city.id] = JSON.stringify(d);
+				localStorage.foundLocation = d.city.id;
+				window.location = '#detail';
+			});
+    	}, function(e){
+    		alert(e);
+    	});
+    });
 
 });
