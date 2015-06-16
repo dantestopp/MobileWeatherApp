@@ -1,16 +1,16 @@
+var api = "c7d8ac7641d0dd28540a2ec9fc2eb571";
 $("#add").ready(function(){
 	$("#searchLocation").keypress(function(e) {
 		 if(e.which == 13) {
 			var q = $("#searchLocation").val();
 			$.ajax({
-				url:"http://api.openweathermap.org/data/2.5/find?q="+q+"&type=like&mode=json&APPID=c7d8ac7641d0dd28540a2ec9fc2eb571",
+				url:"http://api.openweathermap.org/data/2.5/find?q="+q+"&type=like&mode=json&APPID="+api,
 				dataType: "JSON",
 				method: "GET"
 			}).done(function(d){
 				console.log(d);
 				$.each(d.list,function(k,v){
 					$("#searchResults").append("<li class='foundLocations' id='"+v.id+"'>"+v.name+"("+v.sys.country+")</li>");
-					localStorage[v.id] = v;
 				});
 				$(".foundLocations").click(function(){
 					localStorage.foundLocation = $(this).attr('id');
@@ -31,8 +31,26 @@ $("#main").ready(function(){
 	}
 });
 $("#detail").ready(function(){
+	var data;
 	//If Temp saved and not older than 30 min load from localstorage
 	//If not load the detail temp and save it to the localStorage
-	var location = localStorage[localStorage['foundLocation']];
-	$("#locationId").html(location.name);
+	var foundLocation = localStorage['foundLocation'];
+	delete localStorage['foundLocation'];
+	if(localStorage[foundLocation] == null){
+		$.ajax({
+			url: "http://api.openweathermap.org/data/2.5/forecast/daily?id="+foundLocation+"&mode=json&units=metric&cnt=5&APPID="+api,
+			dataType: 'JSON',
+			method: "GET"
+		}).done(function(d){
+			localStorage[d.city.id] = JSON.stringify(d);
+			data = d;
+			//Handlebars
+		});
+	}else{
+			data = JSON.parse(localStorage[foundLocation]);
+	}
+
+	
+	
+	$("#locationId").html("Detail");
 });
