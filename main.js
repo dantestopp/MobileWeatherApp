@@ -99,7 +99,11 @@ $(document).ready(function(){
 				window.location = '#detail';
 			});
     	}, function(e){
-    		$("#locationError").toggle();
+			$("#locationError").toggle();
+    		
+    		setTimeout(function(){
+    			$("#locationError").toggle();
+		   },5000);
     	});
     });
 
