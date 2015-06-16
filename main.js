@@ -67,6 +67,7 @@ $(document).ready(function(){
 					localStorage.locations = JSON.stringify(new Array());
 				var j = JSON.parse(localStorage.locations);
 				j.push(data.city.id);
+				j = $.unique(j);
 				localStorage.locations = JSON.stringify(j);
 			});
 		}
