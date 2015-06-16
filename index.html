@@ -1,71 +1,72 @@
 <!doctype html>
 <html>
-<head>
-    <title>My Page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="jquery/jquery.mobile-1.4.5.min.css">
-    <script src="jquery/jquery-1.11.3.min.js"></script>
-    <script src="jquery/jquery.mobile-1.4.5.min.js"></script>
-    <script src="jquery/handlebars-v3.0.3.js"></script>
-	<link rel="stylesheet" type="text/css" href="indexStyle.css">
-    <script src="main.js"></script>
-          
-</head>
-<body>
-<script id="mainListItem" type="text/x-handlebars-template">
-  <li><div>
-    <h1>{{city.name}}</h1>
-    <div>
-      {{list.0.temp.day}}
-    </div>
-  </div>
-  </li>
-</script>
- <div data-role="page" id="main">
-    <div data-role="header">
-       <h1>MobileWeather</h1>
+	<head>
+		<title>My Page</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="jquery/jquery.mobile-1.4.5.min.css">
+		<script src="jquery/jquery-1.11.3.min.js"></script>
+		<script src="jquery/jquery.mobile-1.4.5.min.js"></script>
+		<script src="jquery/handlebars-v3.0.3.js"></script>
+		<link rel="stylesheet" type="text/css" href="indexStyle.css">
+		<script src="main.js"></script>  
+	</head>
+	<body>
+		<script id="mainListItem" type="text/x-handlebars-template">
+			<li>
+				<div>
+					<h1>{{city.name}}</h1>
+					<div>
+						{{list.0.temp.day}}
+					</div>
+				</div>
+			</li>
+		</script>
+		 <div data-role="page" id="main">
+			<div data-role="header">
+			   <h1>MobileWeather</h1>
+				<button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-btn-icon-notext ui-icon-location">location</button>
+			   <a href="#add" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-plus ui-btn-icon-notext"></a>
 
-        <button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-btn-icon-notext ui-icon-location">location</button>
-       <a href="#add" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-plus ui-btn-icon-notext"></a>
+			</div><!-- /header -->
 
-    </div><!-- /header -->
+			<div role="main" class="ui-content">
+				<form>
+			    	<input id="filter-for-listview" data-type="search" placeholder="Type to search...">
+				</form>
+				<ul data-role="listview" id="locationList" data-inset="true" data-filter="true" data-input="#filter-for-listview">
+				
+				</ul>
+			</div><!-- /content -->
 
-    <div role="main" class="ui-content">
-        <form>
-    <input id="filter-for-listview" data-type="search" placeholder="Type to search...">
-</form>
-<ul data-role="listview" id="locationList" data-inset="true" data-filter="true" data-input="#filter-for-listview">
-</ul>
-    </div><!-- /content -->
+		</div><!-- /page -->
 
-</div><!-- /page -->
+		<!-- Start of second page -->
+		<div data-role="page" id="add">
 
-<!-- Start of second page -->
-<div data-role="page" id="add">
+			<div data-role="header">
+				<h1>Add Location</h1>
+				<a href="#main">Back to foo</a>
+			</div><!-- /header -->
 
-    <div data-role="header">
-        <h1>Add Location</h1>
-        <a href="#main">Back to foo</a>
-    </div><!-- /header -->
+			<div role="main" class="ui-content">
+				<label for="searchLocation">Search Input:</label>
+				<input type="text" name="search" id="searchLocation" value="" />
+				<ul data-role="listview" id="searchResults">
+				
+				</ul>
+			</div><!-- /content -->
 
-<div role="main" class="ui-content">
-    <label for="searchLocation">Search Input:</label>
-    <input type="text" name="search" id="searchLocation" value="" />
-    <ul data-role="listview" id="searchResults"></ul>
-</div><!-- /content -->
+		</div><!-- /page -->
+		<div data-role="page" id="detail">
 
-</div><!-- /page -->
-<div data-role="page" id="detail">
+			<div id="detailheader" data-role="header">
+				<h1>Add Location</h1>
+				<a href="#main">Back to foo</a>
+			</div><!-- /header -->
 
-    <div id="detailheader" data-role="header">
-        <h1>Add Location</h1>
-        <a href="#main">Back to foo</a>
-    </div><!-- /header -->
-
-<div role="main" class="ui-content">
-    <h1 id="locationId"></h1>
-</div><!-- /content -->
-
-</div><!-- /page -->
-</body>
+			<div role="main" class="ui-content">
+				<h1 id="locationId"></h1>
+			</div><!-- /content -->
+		</div><!-- /page -->
+	</body>
 </html>
