@@ -98,7 +98,7 @@ $(document).ready(function(){
 				window.location = '#detail';
 			});
     	}, function(e){
-    		alert(e);
+    		$("#locationError").toggle();
     	});
     });
 

@@ -37,9 +37,10 @@
 				<a href="#add" id="addLocation" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-plus ui-btn-icon-notext"></a>
 			</div><!-- /header -->
 			<div role="main" class="ui-content">
+                <div style="display:none" id='locationError'>An Error  occurred while searching your Location</div>
 				<form>
-		             <input id="filter-for-listview" data-type="search" placeholder="Type to search...">
-				</form>
+                    <input id="filter-for-listview" data-type="search" placeholder="Type to search...">
+                </form>
 				<ul data-role="listview" id="locationList" data-inset="true" data-filter="true" data-input="#filter-for-listview">
 				
 				</ul>
