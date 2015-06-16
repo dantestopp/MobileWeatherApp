@@ -13,13 +13,17 @@
 	</head>
 	<body>
 		<script id="mainListItem" type="text/x-handlebars-template">
-			<li class="mainListItems" id="{{city.id}}"><div>
-				<h1>{{city.name}}</h1>
-					<div>
-						{{list.0.temp.day}}
-					</div>
+			<div class="mainListItems" id="{{city.id}}">
+				<div class="listItemImage">
+					
 				</div>
-			</li>
+				<div class="listItemCityName">
+					<h1>{{city.name}}</h1>
+				</div>
+				<div class="listItemTemp">
+					{{list.0.temp.day}}
+				</div>
+			</div>
 		</script>
 		<script id="detailPage" type="text/x-handlebars-template">
 			<h1>{{city.name}}</h1>
