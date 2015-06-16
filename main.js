@@ -1,6 +1,8 @@
 $(document).ready(function(){
 	var source   = $("#mainListItem").html();
 	var mainListItem = Handlebars.compile(source);
+	source = $("#detailPage").html();
+	var detailPage = Handlebars.compile(source);
 	var api = "c7d8ac7641d0dd28540a2ec9fc2eb571";
 	$("#add").ready(function(){
 		$("#searchLocation").keypress(function(e) {
@@ -72,8 +74,12 @@ $(document).ready(function(){
 		}
 		
 		console.log(data);
-		$("#locationId").html("Detail");
+		$("#detail > .ui-content").append(detailPage(data));
 	});
-
+  	$('#locationList').on('click', 'li', function() {
+		console.log("click");
+		localStorage.foundLocation = $(this).attr('id');
+		window.location ='#detail';
+    });
 
 });

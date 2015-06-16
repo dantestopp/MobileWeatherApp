@@ -13,13 +13,17 @@
 </head>
 <body>
 <script id="mainListItem" type="text/x-handlebars-template">
-  <li><div>
+  <li class="mainListItems" id="{{city.id}}"><div>
     <h1>{{city.name}}</h1>
     <div>
       {{list.0.temp.day}}
     </div>
   </div>
   </li>
+</script>
+<script id="detailPage" type="text/x-handlebars-template">
+    <h2>{{city.0.temp.min}}</h2>
+    <h2>{{city.0.temp.max}}</h2>
 </script>
  <div data-role="page" id="main">
     <div data-role="header">
@@ -32,10 +36,9 @@
 
     <div role="main" class="ui-content">
         <form>
-    <input id="filter-for-listview" data-type="search" placeholder="Type to search...">
-</form>
-<ul data-role="listview" id="locationList" data-inset="true" data-filter="true" data-input="#filter-for-listview">
-</ul>
+             <input id="filter-for-listview" data-type="search" placeholder="Type to search...">
+        </form>
+        <ul data-role="listview" id="locationList" data-inset="true" data-filter="true" data-input="#filter-for-listview"></ul>
     </div><!-- /content -->
 
 </div><!-- /page -->
@@ -58,12 +61,12 @@
 <div data-role="page" id="detail">
 
     <div id="detailheader" data-role="header">
-        <h1>Add Location</h1>
+        <h1>Location</h1>
         <a href="#main">Back to foo</a>
     </div><!-- /header -->
 
 <div role="main" class="ui-content">
-    <h1 id="locationId"></h1>
+    
 </div><!-- /content -->
 
 </div><!-- /page -->
