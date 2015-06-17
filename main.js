@@ -16,7 +16,10 @@ $(document).ready(function(){
 				var q = $("#searchLocation").val();
 				if(q != "")
 				{
-					$("#searchResults").toggle();
+					if($('#searchResults').css("display") == "none")
+					{
+						$("#searchResults").toggle();
+					}
 					$.ajax({
 						url:"http://api.openweathermap.org/data/2.5/find?q="+q+"&type=like&mode=json&APPID="+api,
 						dataType: "JSON",
@@ -35,11 +38,25 @@ $(document).ready(function(){
 				}
 				else
 				{
-					$("#searchResults").toggle();
+					if($('#searchResults').css("display") != "none")
+					{
+						$("#searchResults").toggle();
+					}
 				}
 		}
 		});
 	});
+	
+	$("#backToMainFromAdd").click(function()
+	{
+		$("#searchResults").empty();
+		if($('#searchResults').css("display") != "none")
+		{
+			$("#searchResults").toggle();
+		}
+		$("#searchLocation").val("");
+	});
+	
 	$("#add").on('pagebeforeshow',function(){
 		if(typeof(localStorage.search) !== "undefined"){
 			var val = localStorage.search;
