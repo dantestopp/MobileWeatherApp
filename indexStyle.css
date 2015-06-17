@@ -141,11 +141,6 @@
 #searchResults li div
 {
 	margin-left: 5px;
-	width: 95%;
+	width: 90%;
 	float: left;
-}
-
-#searchResults li img
-{
-	float:right;
 }
