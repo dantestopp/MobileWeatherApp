@@ -18,7 +18,7 @@ $(document).ready(function(){
 				}).done(function(d){
 					console.log(d);
 					$.each(d.list,function(k,v){
-						$("#searchResults").append("<li class='foundLocations' id='"+v.id+"'>"+v.name+" <img src='flags/"+v.sys.country+".png'></li>");
+						$("#searchResults").append("<li class='foundLocations' id='"+v.id+"'><div>"+v.name+"</div> <img src='flags/"+v.sys.country+".png'></li>");
 					});
 					$(".foundLocations").click(function(){
 						localStorage.foundLocation = $(this).attr('id');
