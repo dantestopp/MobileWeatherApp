@@ -53,13 +53,11 @@ $(document).ready(function(){
 		}
 	});
 	$("#detail").on("pagebeforeshow",function(){
-
+		$("#detailAddButton").hide();
 		var data;
-		//If Temp saved and not older than 30 min load from localstorage
-		//If not load the detail temp and save it to the localStorage
 		var fL = localStorage['foundLocation'];
 		delete localStorage['foundLocation'];
-		if(localStorage[fL] == null){
+		if(typeof(localStorage[fL]) === "undefined"){
 			$.ajax({
 				url: "http://api.openweathermap.org/data/2.5/forecast/daily?id="+fL+"&mode=json&units=metric&cnt=5&APPID="+api,
 				dataType: 'JSON',
@@ -67,14 +65,16 @@ $(document).ready(function(){
 			}).done(function(d){
 				localStorage[d.city.id] = JSON.stringify(d);
 				data = d;
+				$("#detail > .ui-content").html(detailPage(data));
 			});
 		}else{
 				data = JSON.parse(localStorage[fL]);
+				$("#detail > .ui-content").html(detailPage(data));
 		}
 
 		if(localStorage.detailAddButton){
 			delete localStorage.detailAddButton;
-			$("#detailheader").append('<a id="detailAddButton" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-plus ui-btn-icon-notext"></a>');
+			$("#detailAddButton").show();
 			$("#detailAddButton").click(function(){
 				if(typeof(localStorage.locations) === "undefined" || localStorage.locations.length <= 0)
 					localStorage.locations = JSON.stringify(new Array());
@@ -83,10 +83,7 @@ $(document).ready(function(){
 				j = $.unique(j);
 				localStorage.locations = JSON.stringify(j);
 			});
-		}
 		
-		console.log(data);
-		$("#detail > .ui-content").html(detailPage(data));
 	});
   	$('#locationList').on('click', 'div', function() {
   		if($(this).attr('id')!== "no-results"){
@@ -119,6 +116,7 @@ $(document).ready(function(){
 		   },5000);
     	});
     });
+
     $("#main").pull_to_refresh({
     refresh: function(stoploading){
     	var a = JSON.parse(localStorage.locations);
