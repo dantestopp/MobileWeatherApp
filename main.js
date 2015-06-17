@@ -83,6 +83,7 @@ $(document).ready(function(){
 				j = $.unique(j);
 				localStorage.locations = JSON.stringify(j);
 			});
+		}
 		
 	});
   	$('#locationList').on('click', 'div', function() {
