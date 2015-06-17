@@ -33,6 +33,9 @@ $(document).ready(function(){
 							localStorage.foundLocation = $(this).attr('id');
 							localStorage.detailAddButton = true;
 							window.location ='#detail';
+							$("#searchResults").empty();
+							$("#searchResults").toggle();
+							$("#searchLocation").val("");
 						});
 					});
 				}
