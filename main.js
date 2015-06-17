@@ -14,21 +14,29 @@ $(document).ready(function(){
 			 if(e.which == 13) {
 				$("#searchResults").empty();
 				var q = $("#searchLocation").val();
-				$.ajax({
-					url:"http://api.openweathermap.org/data/2.5/find?q="+q+"&type=like&mode=json&APPID="+api,
-					dataType: "JSON",
-					method: "GET"
-				}).done(function(d){
-					console.log(d);
-					$.each(d.list,function(k,v){
-						$("#searchResults").append(searchResults(v));
+				if(q != "")
+				{
+					$("#searchResults").toggle();
+					$.ajax({
+						url:"http://api.openweathermap.org/data/2.5/find?q="+q+"&type=like&mode=json&APPID="+api,
+						dataType: "JSON",
+						method: "GET"
+					}).done(function(d){
+						console.log(d);
+						$.each(d.list,function(k,v){
+							$("#searchResults").append(searchResults(v));
+						});
+						$(".foundLocations").click(function(){
+							localStorage.foundLocation = $(this).attr('id');
+							localStorage.detailAddButton = true;
+							window.location ='#detail';
+						});
 					});
-					$(".foundLocations").click(function(){
-						localStorage.foundLocation = $(this).attr('id');
-						localStorage.detailAddButton = true;
-						window.location ='#detail';
-					});
-				});
+				}
+				else
+				{
+					$("#searchResults").toggle();
+				}
 		}
 		});
 	});

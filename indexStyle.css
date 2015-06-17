@@ -114,6 +114,7 @@
 
 #searchResults
 {
+	display: none;
 	font-size: 17px;
 	width: 100%;
 	border: 1px solid #CCCCCC;
