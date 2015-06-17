@@ -1,3 +1,8 @@
+body
+{
+	overflow: hidden;
+}
+
 .alert {
   padding: 15px;
   margin-bottom: 20px;
@@ -14,7 +19,7 @@
 
 .mainListItems
 {
-	width: 100%;
+	width: 97%;
 	height: 50px;
 	border: 1px solid #CCCCCC;
 	opacity: 1;
@@ -48,7 +53,7 @@
 {
 	float: left;
 	height: 100%;
-	width: 60%;
+	width: 55%;
 	display: flex;
 	align-items: center;
 	justify-content: left;
@@ -61,7 +66,7 @@
 	float: right;
 	border-left: 1px solid #CCCCCC;
 	height: 100%;
-	width: 19%;
+	width: 24%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -143,4 +148,14 @@
 	margin-left: 5px;
 	width: 90%;
 	float: left;
+}
+
+#locationListWraper
+{
+	position: fixed;
+	bottom: 0;
+	overflow-y: scroll;
+	width: 93%; 
+	height: 75%;
+	display:block;
 }
