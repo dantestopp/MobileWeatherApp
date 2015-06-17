@@ -117,22 +117,6 @@ $(document).ready(function(){
     	});
     });
 
-    $("#main").pull_to_refresh({
-    refresh: function(stoploading){
-    	var a = JSON.parse(localStorage.locations);
-    	$.each(a,function(k,v){
-    			$.ajax({
-				url: "http://api.openweathermap.org/data/2.5/forecast/daily?id="+v+"&mode=json&units=metric&cnt=5&APPID="+api,
-				dataType: 'JSON',
-				method: "GET"
-				}).done(function(d){
-				localStorage[d.city.id] = JSON.stringify(d);
-			});
-    	});
-    	window.location = '#main';
-      stoploading();
-    }
-  });
     Handlebars.registerHelper('date', function(object) {
     	var d = new Date(object*1000);
     	var a = ['Mo','Tu','We','Th','Fr','Sa','Su'];
