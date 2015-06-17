@@ -56,7 +56,11 @@
 				<a href="#add" id="addLocation" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-plus ui-btn-icon-notext"></a>
 			</div><!-- /header -->
 			<div role="main" class="ui-content">
-                <div style="display:none" id='locationError'>An Error  occurred while searching your Location</div>
+                <div  style="display:none" id="locationError" class="alert alert-danger" role="alert">
+					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+					<span class="sr-only"></span>
+					An Error  occurred while searching your Location
+				</div>
 				<form>
                     <input id="filter-for-listview" data-type="search" placeholder="Type to search...">
                 </form>
