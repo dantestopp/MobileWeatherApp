@@ -12,6 +12,7 @@ $(document).ready(function(){
 	$("#add").ready(function(){
 		$("#searchLocation").keypress(function(e) {
 			 if(e.which == 13) {
+				$("#searchResults").empty();
 				var q = $("#searchLocation").val();
 				$.ajax({
 					url:"http://api.openweathermap.org/data/2.5/find?q="+q+"&type=like&mode=json&APPID="+api,
