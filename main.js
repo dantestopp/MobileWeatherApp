@@ -4,6 +4,8 @@ $(document).ready(function(){
 	var mainListItem = Handlebars.compile(source);
 	source = $("#detailPage").html();
 	var detailPage = Handlebars.compile(source);
+	source = $("#searchResultsTemplate").html();
+	var searchResults = Handlebars.compile(source);
 	var api = "c7d8ac7641d0dd28540a2ec9fc2eb571";
 
 
@@ -18,7 +20,7 @@ $(document).ready(function(){
 				}).done(function(d){
 					console.log(d);
 					$.each(d.list,function(k,v){
-						$("#searchResults").append("<li class='foundLocations' id='"+v.id+"'><div>"+v.name+"</div> <img src='flags/"+v.sys.country+".png'></li>");
+						$("#searchResults").append(searchResults(v));
 					});
 					$(".foundLocations").click(function(){
 						localStorage.foundLocation = $(this).attr('id');
@@ -125,6 +127,13 @@ $(document).ready(function(){
     });
     Handlebars.registerHelper('temp',function(object){
     	return new Handlebars.SafeString(object+"&deg;C");
+    });
+    Handlebars.registerHelper('country',function(object){
+    	var html = "";
+    	if(object.length == 2)
+    		html ="<img src='flags/"+object+".png'>";
+    	return new Handlebars.SafeString(html);
+
     });
     $("#locationList").on( "filterablefilter", function( event, ui ) {
         if ($(this).children(':visible').not('#no-results').length === 0) {
