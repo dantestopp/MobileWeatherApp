@@ -25,22 +25,24 @@
 			</div>
 		</script>
 		<script id="detailPage" type="text/x-handlebars-template">
-			<h1>{{city.name}}</h1>
-			<h2>Max: {{temp list.0.temp.max}}</h2>
-			<h2>Min: {{temp list.0.temp.min}}</h2>
+			<div id="dailyInformation">
+				<img src="http://openweathermap.org/img/w/{{list.0.weather.0.icon}}.png">
+				<div>{{temp list.0.temp.day}}</div>
+				<div>{{city.name}}</div>
+			</div>
 			<div id="days">
 				{{#each list}}
 					<div class="day">
 						<div class="dayName">
-							<h1>{{date this.dt}}</h1>
-						</div>
-						<div class="dayTemp">
-							<h2>{{temp this.temp.day}}</h2>
+							{{date this.dt}}
 						</div>
 						<div class="dayImg">
 							<img src="http://openweathermap.org/img/w/{{this.weather.0.icon}}.png">
 						</div>
-
+						<div class="dayTemp">
+							<div class="maxTemp">{{temp this.temp.max}}</div>
+							<div class="minTemp">{{temp this.temp.min}}</div>
+						</div>
 					</div>
 
 				{{/each}}
@@ -93,7 +95,7 @@
 				<a id="detailAddButton" data-role="button" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-plus ui-btn-icon-notext"></a>
 			</div><!-- /header -->
 
-			<div role="main" class="ui-content">
+			<div id="detailContent" role="main" class="ui-content">
 				<div id="alert"></div>
 				<div id="cityDetail"></div>
 			</div><!-- /content -->
