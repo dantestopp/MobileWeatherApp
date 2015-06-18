@@ -138,8 +138,10 @@ $(document).ready(function(){
 		}
     });
     $("#locationList").on( "taphold", 'div', function(e){
-    	e.preventDefault();
-    	$("#addLocation").replaceWith("<button class='ui-btn ui-icon-delete ui-btn-icon-left ui-btn-icon-notext'></button>");
+    	 e.stopPropagation();
+    	$("#addLocation").replaceWith("<a class='ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-delete ui-btn-icon-notext'></a>");
+    	$("#locateMe").replaceWith("<a class='ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-btn-icon-notext ui-icon-recycle'></a>");
+    	$(".listItemImage").replaceWith('<input type="checkbox" name="checkbox-0 ">');
     	return false;
     }); 
     $("#locateMe").click(function(){
