@@ -4,6 +4,8 @@ $(document).ready(function(){
 	var mainListItem = Handlebars.compile(source);
 	source = $("#detailPage").html();
 	var detailPage = Handlebars.compile(source);
+	var leftCompare = Handlebars.compile(source);
+	var rightCompare = Handlebars.compile(source);
 	source = $("#searchResultsTemplate").html();
 	var searchResults = Handlebars.compile(source);
 	var api = "c7d8ac7641d0dd28540a2ec9fc2eb571";
