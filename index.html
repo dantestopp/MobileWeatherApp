@@ -26,9 +26,9 @@
 		</script>
 		<script id="detailPage" type="text/x-handlebars-template">
 			<div id="dailyInformation">
-				<img src="http://openweathermap.org/img/w/{{list.0.weather.0.icon}}.png">
-				<div>{{temp list.0.temp.day}}</div>
-				<div>{{city.name}}</div>
+				<img class="detailImage" src="http://openweathermap.org/img/w/{{list.0.weather.0.icon}}.png">
+				<div class="detailTemp">{{temp list.0.temp.day}}</div>
+				<div class="detailCity">{{city.name}}</div>
 			</div>
 			<div id="days">
 				{{#each list}}
@@ -40,8 +40,8 @@
 							<img src="http://openweathermap.org/img/w/{{this.weather.0.icon}}.png">
 						</div>
 						<div class="dayTemp">
-							<div class="maxTemp">{{temp this.temp.max}}</div>
-							<div class="minTemp">{{temp this.temp.min}}</div>
+							{{temp this.temp.max}}<br>
+							{{temp this.temp.min}}
 						</div>
 					</div>
 

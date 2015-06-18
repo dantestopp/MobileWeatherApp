@@ -1,6 +1,7 @@
 html, body, cityDetail, detailContent, detail
 {
    height: 100%;
+   width: 100%;
 }
 
 body
@@ -117,6 +118,7 @@ body
 .day
 {
 	clear: both;
+	width: 100%
 }
 
 #yesSearch{
@@ -232,16 +234,26 @@ body
 	height: 100%;
  }
  
-.maxTemp
+ .detailImage
  {
-	height: 49%;
-	width: 100%;
-	float: right;
+	float: left;
+	width: 30%;
+	height: 20%;
  }
-
- .minTemp
+ 
+ .detailTemp
  {
-	height: 49%;
+	float: left;
+	width: 70%;
+	height: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+ }
+ 
+ .detailCity
+ {
+	float: left;
 	width: 100%;
-	float: right;
+	height: 30%;
  }
