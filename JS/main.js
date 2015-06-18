@@ -29,6 +29,7 @@ $(document).ready(function(){
 					}).done(function(d){
 						if(d.list.length == 0){
 							$("#searchError").toggle();
+							$("#searchResults").toggle();
 							setTimeout(function(){
 				    			$("#searchError").toggle();
 						   },5000);
@@ -46,6 +47,7 @@ $(document).ready(function(){
 							$("#searchLocation").val("");
 						});
 					}).error(function(err){
+						$("#searchResults").toggle();
 						$("#searchError").toggle();
 							setTimeout(function(){
 				    			$("#searchError").toggle();
