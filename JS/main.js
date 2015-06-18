@@ -140,8 +140,27 @@ $(document).ready(function(){
     $("#locationList").on( "taphold", 'div', function(e){
     	 e.stopPropagation();
     	$("#addLocation").replaceWith("<a class='ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-delete ui-btn-icon-notext'></a>");
-    	$("#locateMe").replaceWith("<a class='ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-btn-icon-notext ui-icon-recycle'></a>");
-    	$(".listItemImage").replaceWith('<input type="checkbox" name="checkbox-0 ">');
+    	$("#locateMe").replaceWith("<a id='compare' class='ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-btn-icon-notext ui-icon-recycle'></a>");
+    	$(".listItemImage").replaceWith('<input class="checkbox-locations" type="checkbox" name="checkbox-0 ">');
+    	$("#locationList").off("click",'div');
+    	$("#locationList").on('click','div',function(){
+    		$(this).children(".checkbox-locations").attr("checked",'checked');
+    	});
+    	$("#compare").click(function(){
+    		var selected = 0;
+    		var a = Array();
+    		$.each($(".checkbox-locations"),function(k,v){
+    			if($(this).is(':checked')){
+    				console.log("checked");
+    				selected++;
+    				a.push($(this).parent().attr('id'));
+    			}
+    		});
+    		if(selected == 2){
+    			localStorage.compare = JSON.stringify(a);
+    			window.location = "#compare";
+    		}
+    	});
     	return false;
     }); 
     $("#locateMe").click(function(){
@@ -191,5 +210,10 @@ $(document).ready(function(){
 		var val = $("#filter-for-listview").val();
 		localStorage.search = val;
 		window.location = '#add';
+	});
+	$("#compare").on('pagebeforeshow',function(){
+		var selected = JSON.parse(localStorage.compare);
+		$("#leftCity").html(leftCompare(JSON.parse(localStorage[selected[0]])));
+		$("#rightCity").html(rightCompare(JSON.parse(localStorage[selected[1]])));
 	});    
 });
