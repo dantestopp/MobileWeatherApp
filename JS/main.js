@@ -176,18 +176,15 @@ $(document).ready(function(){
     		$.each($(".checkbox-locations"),function(k,v){
     			if($(this).is(':checked')){
     				console.log("checked");
-    				a.push($(this).parent().attr('id'));
+    				a.push(parseInt($(this).parent().attr('id')));
     			}
     		});
     		if (confirm('Are you sure you want to delete the selected Locations?')) {
-			    	$.each(a,function(k,v){
+			    	
 			    		var b = JSON.parse(localStorage.locations);
-			    		var i = b.indexOf(v);
-			    		b.splice(i,1);
+			    		b.remove(a);
 			    		localStorage.locations = JSON.stringify(b);
-			    		delete localStorage[v];
-			    	});
-			    	window.location = "#main";
+			    		location.reload();
 			}
     	});
     	return false;
@@ -249,3 +246,21 @@ $(document).ready(function(){
 		$("#rightCity").html(rightCompare(JSON.parse(localStorage[selected[1]])));
 	});    
 });
+if (!Array.prototype.remove) {
+  Array.prototype.remove = function(vals, all) {
+    var i, removedItems = [];
+    if (!Array.isArray(vals)) vals = [vals];
+    for (var j=0;j<vals.length; j++) {
+      if (all) {
+        for(i = this.length; i--;){
+          if (this[i] === vals[j]) removedItems.push(this.splice(i, 1));
+        }
+      }
+      else {
+        i = this.indexOf(vals[j]);
+        if(i>-1) removedItems.push(this.splice(i, 1));
+      }
+    }
+    return removedItems;
+  };
+}
