@@ -219,7 +219,8 @@ $(document).ready(function(){
     	return new Handlebars.SafeString(a[d.getDay()]);
     });
     Handlebars.registerHelper('temp',function(object){
-    	return new Handlebars.SafeString(object+"&deg;C");
+    	var t = Math.floor(object);
+    	return new Handlebars.SafeString(t+"&deg;C");
     });
     Handlebars.registerHelper('country',function(object){
     	var html = "";
