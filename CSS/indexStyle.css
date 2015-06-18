@@ -171,21 +171,23 @@ body
 #leftCity
 {
 	border-right: 1px solid #CCCCCC;
-	width: 50%;
+	width: 47%;
 	height: 100%;
 	float: left;
+	padding: 5px;
 }
 
 #rightCity
 {
-	width: 49%;
+	width: 44%;
 	height: 100%;
 	float: left;
+	padding: 5px;
 }
 
 #dailyInformation
 {
-	height: 100%;
+	height: 120px;
 	width: 100%;
 	float: left;
 }
@@ -224,7 +226,7 @@ body
  
  .dayImg
  {
-	width: 65%;
+	width: 35%;
 	height: 100%;
  }
  
@@ -232,6 +234,8 @@ body
  {
 	width: 20%;
 	height: 100%;
+	float: right;
+	padding-right: 10px;
  }
  
  .detailImage
@@ -239,6 +243,11 @@ body
 	float: left;
 	width: 30%;
 	height: 20%;
+ }
+ 
+ .detailImage img
+ {
+	width: 80%;
  }
  
  .detailTemp
