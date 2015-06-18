@@ -27,7 +27,13 @@ $(document).ready(function(){
 						dataType: "JSON",
 						method: "GET"
 					}).done(function(d){
-						console.log(d);
+						if(d.list.length == 0){
+							$("#searchError").toggle();
+							setTimeout(function(){
+				    			$("#searchError").toggle();
+						   },5000);
+							return 0;
+						}
 						$.each(d.list,function(k,v){
 							$("#searchResults").append(searchResults(v));
 						});
@@ -39,6 +45,11 @@ $(document).ready(function(){
 							$("#searchResults").toggle();
 							$("#searchLocation").val("");
 						});
+					}).error(function(err){
+						$("#searchError").toggle();
+							setTimeout(function(){
+				    			$("#searchError").toggle();
+						   },5000);
 					});
 				}
 				else
@@ -52,17 +63,14 @@ $(document).ready(function(){
 		});
 	});
 	
-	$("#backToMainFromAdd").click(function()
-	{
+	$("#add").on('pagebeforeshow',function(){
 		$("#searchResults").empty();
 		if($('#searchResults').css("display") != "none")
 		{
 			$("#searchResults").toggle();
 		}
 		$("#searchLocation").val("");
-	});
-	
-	$("#add").on('pagebeforeshow',function(){
+
 		if(typeof(localStorage.search) !== "undefined"){
 			var val = localStorage.search;
 			delete localStorage.search;
