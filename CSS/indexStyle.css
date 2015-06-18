@@ -59,6 +59,11 @@ body
 	opacity: 0.5;
 }
 
+.checkbox-locations
+{
+	margin-top: 20px;
+}
+
 .listItemImage
 {
 	float: left;
