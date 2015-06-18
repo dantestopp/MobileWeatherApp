@@ -95,7 +95,7 @@ $(document).ready(function(){
 			}
     	});
 
-		if(typeof(localStorage["locations"]) !== "undefined") {
+		if(typeof(localStorage["locations"]) !== "undefined" && JSON.parse(localStorage.locations).length > 0) {
 	    	var locations = JSON.parse(localStorage["locations"]);
 	    	$("#locationList").empty();
 	    	$.each(locations,function(k,v){
@@ -109,6 +109,7 @@ $(document).ready(function(){
 	});
 	$("#detail").on("pagebeforeshow",function(){
 		$("#detailAddButton").hide();
+		$("#detailAddButton").removeClass('ui-disabled');
 		var data;
 		var fL = localStorage['foundLocation'];
 		delete localStorage['foundLocation'];
@@ -169,6 +170,25 @@ $(document).ready(function(){
     			localStorage.compare = JSON.stringify(a);
     			window.location = "#compare";
     		}
+    	});
+    	$("#delete").click(function(){
+    		var a = Array();
+    		$.each($(".checkbox-locations"),function(k,v){
+    			if($(this).is(':checked')){
+    				console.log("checked");
+    				a.push($(this).parent().attr('id'));
+    			}
+    		});
+    		if (confirm('Are you sure you want to delete the selected Locations?')) {
+			    	$.each(a,function(k,v){
+			    		var b = JSON.parse(localStorage.locations);
+			    		var i = b.indexOf(v);
+			    		b.splice(i,1);
+			    		localStorage.locations = JSON.stringify(b);
+			    		delete localStorage[v];
+			    	});
+			    	window.location = "#main";
+			}
     	});
     	return false;
     }); 
