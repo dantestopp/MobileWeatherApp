@@ -137,7 +137,7 @@ $(document).ready(function(){
 				j.push(data.city.id);
 				j = $.unique(j);
 				localStorage.locations = JSON.stringify(j);
-				$("#alert").html("<div class='alert alert-success'>Location saved successfull</div>");
+				$("#alert").html("<div class='success success-style'>Location saved successfull</div>");
 				$("#detailAddButton").addClass('ui-disabled');
 			});
 		}
