@@ -83,6 +83,18 @@ $(document).ready(function(){
 		}
 	});
 	$("#main").on('pagebeforeshow',function(){
+
+    	$("#addLocation").show();
+    	$("#locateMe").show();
+    	$("#delete").hide();
+    	$("#compare").hide();
+		$('#locationList').on('click', 'div', function() {
+  			if($(this).attr('id')!== "no-results"){
+				localStorage.foundLocation = $(this).attr('id');
+				window.location ='#detail';
+			}
+    	});
+
 		if(typeof(localStorage["locations"]) !== "undefined") {
 	    	var locations = JSON.parse(localStorage["locations"]);
 	    	$("#locationList").empty();
@@ -131,20 +143,17 @@ $(document).ready(function(){
 		}
 		
 	});
-  	$('#locationList').on('click', 'div', function() {
-  		if($(this).attr('id')!== "no-results"){
-			localStorage.foundLocation = $(this).attr('id');
-			window.location ='#detail';
-		}
-    });
+  	
     $("#locationList").on( "taphold", 'div', function(e){
     	 e.stopPropagation();
-    	$("#addLocation").replaceWith("<a class='ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-delete ui-btn-icon-notext'></a>");
-    	$("#locateMe").replaceWith("<a id='compare' class='ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-btn-icon-notext ui-icon-recycle'></a>");
+    	$("#addLocation").hide();
+    	$("#locateMe").hide();
+    	$("#delete").show();
+    	$("#compare").show();
     	$(".listItemImage").replaceWith('<input class="checkbox-locations" type="checkbox" name="checkbox-0 ">');
     	$("#locationList").off("click",'div');
     	$("#locationList").on('click','div',function(){
-    		$(this).children(".checkbox-locations").attr("checked",'checked');
+    		$(this).children(".checkbox-locations").attr("checked",!$(this).children(".checkbox-locations").attr("checked"));
     	});
     	$("#compare").click(function(){
     		var selected = 0;
@@ -213,6 +222,7 @@ $(document).ready(function(){
 	});
 	$("#compare").on('pagebeforeshow',function(){
 		var selected = JSON.parse(localStorage.compare);
+		delete localStorage.compare;
 		$("#leftCity").html(leftCompare(JSON.parse(localStorage[selected[0]])));
 		$("#rightCity").html(rightCompare(JSON.parse(localStorage[selected[1]])));
 	});    

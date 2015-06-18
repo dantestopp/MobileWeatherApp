@@ -55,8 +55,10 @@
 		<div data-role="page" id="main">
 			<div data-role="header">
 				<h1>MobileWeather</h1>
-				<button id="locateMe" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-btn-icon-notext ui-icon-location"></button>
+				<a id="delete" style="display:none" class='ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-btn-icon-notext ui-icon-delete'></a>
+				<a id="locateMe" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-btn-icon-notext ui-icon-location"></a>
 				<a href="#add" id="addLocation" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-search ui-btn-icon-notext"></a>
+				<a id='compare' style="display:none" class='ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-btn-icon-notext ui-icon-recycle'></a>
 			</div><!-- /header -->
 			<div role="main" class="ui-content">
                 <div  style="display:none" id="locationError" class="alert alert-danger" role="alert">
