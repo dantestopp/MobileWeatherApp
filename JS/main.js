@@ -98,11 +98,11 @@ $(document).ready(function(){
 			}).done(function(d){
 				localStorage[d.city.id] = JSON.stringify(d);
 				data = d;
-				$("#detail > .ui-content").html(detailPage(data));
+				$("#cityDetail").html(detailPage(data));
 			});
 		}else{
 				data = JSON.parse(localStorage[fL]);
-				$("#detail > .ui-content").html(detailPage(data));
+				$("#cityDetail").html(detailPage(data));
 		}
 
 		if(localStorage.detailAddButton){
@@ -115,6 +115,8 @@ $(document).ready(function(){
 				j.push(data.city.id);
 				j = $.unique(j);
 				localStorage.locations = JSON.stringify(j);
+				$("#alert").html("<div class='alert alert-success'>Location saved successfull</div>");
+				$("#detailAddButton").addClass('ui-disabled');
 			});
 		}
 		
