@@ -100,7 +100,6 @@ $(document).ready(function(){
 	    	$("#locationList").empty();
 	    	$.each(locations,function(k,v){
 	    		var data = JSON.parse(localStorage[v]);
-	    		console.log(data);
 	    		$("#locationList").append(mainListItem(data));
 	    	});
 	    	} else {
@@ -152,6 +151,7 @@ $(document).ready(function(){
     	$("#delete").show();
     	$("#compareButton").show();
     	$(".listItemImage").replaceWith('<input class="checkbox-locations" type="checkbox" name="checkbox-0 ">');
+    	$(this).children(".checkbox-locations").attr("checked","checked");
     	$("#locationList").off("click",'div');
     	$("#locationList").on('click','div',function(){
     		$(this).children(".checkbox-locations").attr("checked",!$(this).children(".checkbox-locations").attr("checked"));
@@ -161,7 +161,6 @@ $(document).ready(function(){
     		var a = Array();
     		$.each($(".checkbox-locations"),function(k,v){
     			if($(this).is(':checked')){
-    				console.log("checked");
     				selected++;
     				a.push($(this).parent().attr('id'));
     			}
@@ -175,7 +174,6 @@ $(document).ready(function(){
     		var a = Array();
     		$.each($(".checkbox-locations"),function(k,v){
     			if($(this).is(':checked')){
-    				console.log("checked");
     				a.push(parseInt($(this).parent().attr('id')));
     			}
     		});
@@ -241,7 +239,6 @@ $(document).ready(function(){
 	$("#compare").on('pagebeforeshow',function(){
 		var selected = JSON.parse(localStorage.compare);
 		delete localStorage.compare;
-		console.log(JSON.parse(localStorage[selected[0]]));
 		$("#leftCity").html(leftCompare(JSON.parse(localStorage[selected[0]])));
 		$("#rightCity").html(rightCompare(JSON.parse(localStorage[selected[1]])));
 	});    
