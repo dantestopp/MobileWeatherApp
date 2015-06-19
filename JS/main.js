@@ -83,7 +83,7 @@ $(document).ready(function(){
 		}
 	});
 	$("#main").on('pagebeforeshow',function(){
-
+		$("#filter-for-listview").val("");
     	$("#addLocation").show();
     	$("#locateMe").show();
     	$("#delete").hide();
@@ -188,6 +188,7 @@ $(document).ready(function(){
 			    		b.remove(a);
 			    		localStorage.locations = JSON.stringify(b);
 			    		location.reload();
+			    		return 0;
 			}else{
 						return 0;				
 			}
