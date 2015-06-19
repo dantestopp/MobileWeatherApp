@@ -75,26 +75,6 @@ body
 	opacity: 1;
 }
 
-#delete
-{
-	float: left;
-}
-
-#locateMe
-{
-	float: left;
-}
-
-#addLocation
-{
-	float: right;
-}
-
-#compareButton
-{
-	float:right;
-}
-
 .listItemCityName
 {
 	float: left;
