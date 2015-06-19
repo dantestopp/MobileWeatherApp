@@ -75,6 +75,26 @@ body
 	opacity: 1;
 }
 
+#delete
+{
+	float: left;
+}
+
+#locateMe
+{
+	float: left;
+}
+
+#addLocation
+{
+	float: right;
+}
+
+#compareButton
+{
+	float:right;
+}
+
 .listItemCityName
 {
 	float: left;
@@ -107,7 +127,7 @@ body
 	display: flex;
 	align-items: center;
 	justify-content: left;
-	font-size: 9px;
+	font-size: 13px;
 	opacity: 1;
 }
 
