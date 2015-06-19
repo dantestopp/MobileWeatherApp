@@ -188,6 +188,8 @@ $(document).ready(function(){
 			    		b.remove(a);
 			    		localStorage.locations = JSON.stringify(b);
 			    		location.reload();
+			}else{
+						return 0;				
 			}
     	});
     	return false;
