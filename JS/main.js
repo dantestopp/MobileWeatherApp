@@ -273,7 +273,7 @@ $(document).ready(function(){
     	//Sometimes the return country is e.g. Switzerland even for Zurich CH is returned
     	var html = "";
     	if(object.length == 2)
-    		html ="<img src='flags/"+object+".png'>";
+    		html ="<img src='flags/"+object.toLowerCase()+".png'>";
     	return new Handlebars.SafeString(html);
 
     });
