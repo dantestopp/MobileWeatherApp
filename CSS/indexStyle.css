@@ -286,3 +286,12 @@ body
 	height: 30%;
 	font-size: 19px;
  }
+ .foundLocations{
+ 	cursor: pointer;
+ }
+ .mainListItems{
+ 	cursor: pointer;
+ }
+ #yesSearch{
+ 	cursor: pointer;
+ }
