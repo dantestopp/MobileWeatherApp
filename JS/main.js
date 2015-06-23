@@ -28,7 +28,7 @@ $(document).ready(function(){
 					}
 					//Send Request to OpenWeather
 					$.ajax({
-						url:"http://api.openweathermap.org/data/2.5/find?q="+q+"&type=like&mode=json&APPID="+api,
+						url:"http://api.openweathermap.org/data/2.5/find?q="+encodeURIComponent(q)+"&type=like&mode=json&APPID="+api,
 						dataType: "JSON",
 						method: "GET"
 					}).done(function(d){
