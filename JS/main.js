@@ -116,13 +116,11 @@ $(document).ready(function(){
 		var found = w.getAndRemoveItemFromLocalStorage("foundLocation");
 		var locationData = w.getItemFromLocalStorage(found);
 		//If we don't find an entry for the location we load the data from the Openweather API
-		console.log(locationData);
 		if(locationData == false){
 			w.getForecast({id:found},function(err,data){
 				if(err){
-					console.log(err);
+					return false;
 				}
-				console.log(data);
 				//Save result for later usage
 				w.setItemInLocalStorage(data.city.id,data);
 				locationData = data;
