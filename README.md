@@ -1,5 +1,7 @@
-# MobileWeatherApp
-A mobile Weather website
+# MobileWeatherApp V2
+#This Branch is currently in develoment state!
+
+http://weatherbeta.happyoniens.ch/
 
 ![Main Start](https://github.com/happyoniens/MobileWeatherApp/blob/master/screenshots/Main-Start.PNG)
 
