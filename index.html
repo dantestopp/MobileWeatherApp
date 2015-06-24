@@ -8,6 +8,7 @@
 		<script src="JS/jquery/jquery.mobile-1.4.5.min.js"></script>
 		<script src="JS/handlebars-v3.0.3.js"></script>
 		<link rel="stylesheet" type="text/css" href="CSS/indexStyle.css">
+		<script src="JS/weather.js"></script>
 		<script src="JS/main.js"></script>
 	</head>
 	<body>
@@ -98,7 +99,9 @@
 			</div><!-- /header -->
 
 			<div id="detailContent" role="main" class="ui-content">
-				<div id="alert"></div>
+				<div id="alert">
+					<div id='successMessage' style="display:none" class='success success-style'>Location saved successfull</div>
+				</div>
 				<div id="cityDetail"></div>
 			</div><!-- /content -->
 		</div><!-- /page -->

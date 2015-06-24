@@ -1,17 +1,10 @@
 $(document).ready(function(){
 	//Startpage
  	window.location.hash = "main";
- 	//Load Handlebarstemplate
-	var source   = $("#mainListItem").html();
-	var mainListItem = Handlebars.compile(source);
-	source = $("#detailPage").html();
-	var detailPage = Handlebars.compile(source);
-	var leftCompare = Handlebars.compile(source);
-	var rightCompare = Handlebars.compile(source);
-	source = $("#searchResultsTemplate").html();
-	var searchResults = Handlebars.compile(source);
-	//OpenWeatherApi Key
-	var api = "c7d8ac7641d0dd28540a2ec9fc2eb571";
+
+	w.setTemplate("mainListItem");
+	w.setTemplate("detailPage");
+	w.setTemplate("searchResultsTemplate");
 
 
 	$("#add").ready(function(){
@@ -27,45 +20,31 @@ $(document).ready(function(){
 						$("#searchResults").toggle();
 					}
 					//Send Request to OpenWeather
-					$.ajax({
-						url:"http://api.openweathermap.org/data/2.5/find?q="+encodeURIComponent(q)+"&type=like&mode=json&APPID="+api,
-						dataType: "JSON",
-						method: "GET"
-					}).done(function(d){
-						if(d.list.length == 0){
+					w.getLocationsWithName(q, function(err, d){
+						if(err){
 							$("#searchResults").toggle();
-							//Show error for 5 seconds
-							$("#searchError").toggle();
-							setTimeout(function(){
-				    			$("#searchError").toggle();
-						   },5000);
-							return 0;
+							w.toggleElementAfterNSeconds("#searchError");
 						}
-						//Render each result with Template
+
 						$.each(d.list,function(k,v){
-							$("#searchResults").append(searchResults(v));
+							$("#searchResults").append(w.renderTemplate('searchResultsTemplate',v));
 						});
-						//Click on a result
-						$(".foundLocations").click(function(){
-							//Add id of clicked result to localStorage
-							localStorage.foundLocation = $(this).attr('id');
-							//Add the Add button on the Detailpage
-							localStorage.detailAddButton = true;
-							//Change page
-							window.location ='#detail';
-							//Empty the Searchresults
-							$("#searchResults").empty();
-							$("#searchResults").toggle();
-							$("#searchLocation").val("");
-						});
-					}).error(function(err){
+										
+					//Click on a result
+					$(".foundLocations").click(function(){
+						//Add id of clicked result to localStorage
+						w.setItemInLocalStorage('foundLocation',$(this).attr('id'));
+						//Add the Add button on the Detailpage
+						w.setItemInLocalStorage('detailAddButton',true);
+						//Change page
+						//QJquery Mobile solution?
+						window.location ='#detail';
+						//Empty the Searchresults
+						$("#searchResults").empty();
 						$("#searchResults").toggle();
-						//Show error message for 5 seconds
-						$("#searchError").toggle();
-							setTimeout(function(){
-				    			$("#searchError").toggle();
-						   },5000);
+						$("#searchLocation").val("");
 					});
+				});
 				}
 				else
 				{
@@ -87,9 +66,9 @@ $(document).ready(function(){
 		}
 		$("#searchLocation").val("");
 		//Helper for Mainsearchfield to search for the same Location as in Main searchinput
-		if(typeof(localStorage.search) !== "undefined"){
-			var val = localStorage.search;
-			delete localStorage.search;
+		if(w.getItemFromLocalStorage('search') != false){
+			var val = w.getItemFromLocalStorage('search')
+			w.removeItemFromLocalStorage('search');
 			$("#searchLocation").val(val);
 			var e = jQuery.Event("keypress");
 			e.which = 13;
@@ -121,7 +100,7 @@ $(document).ready(function(){
 	    	$.each(locations,function(k,v){
 	    		var data = JSON.parse(localStorage[v]);
 	    		//Render listitem
-	    		$("#locationList").append(mainListItem(data));
+	    		$("#locationList").append(w.renderTemplate("mainListItem",data));
 	    	});
 	    	} else {
 	    	//If the list is empty show this message
@@ -131,49 +110,42 @@ $(document).ready(function(){
 	$("#detail").on("pagebeforeshow",function(){
 		//Hide add button
 		$("#detailAddButton").hide();
+		$("#successMessage").hide();
+
 		$("#detailAddButton").removeClass('ui-disabled');
-		var data;
-		var fL = localStorage.foundLocation;
-		delete localStorage.foundLocation;
+		var found = w.getAndRemoveItemFromLocalStorage("foundLocation");
+		var locationData = w.getItemFromLocalStorage(found);
 		//If we don't find an entry for the location we load the data from the Openweather API
-		if(typeof(localStorage[fL]) === "undefined"){
-			$.ajax({
-				url: "http://api.openweathermap.org/data/2.5/forecast/daily?id="+fL+"&mode=json&units=metric&cnt=5&APPID="+api,
-				dataType: 'JSON',
-				method: "GET"
-			}).done(function(d){
+		console.log(locationData);
+		if(locationData == false){
+			w.getForecast({id:found},function(err,data){
+				if(err){
+					console.log(err);
+				}
+				console.log(data);
 				//Save result for later usage
-				localStorage[d.city.id] = JSON.stringify(d);
-				data = d;
+				w.setItemInLocalStorage(data.city.id,data);
+				locationData = data;
 				//Render Detailpage
-				$("#cityDetail").html(detailPage(data));
+				$("#cityDetail").html(w.renderTemplate("detailPage", locationData));
 			});
 		}else{
 			//If we saved the data previously we can load the location from localStorage
-				data = JSON.parse(localStorage[fL]);
-				$("#cityDetail").html(detailPage(data));
+				$("#cityDetail").html(w.renderTemplate("detailPage", locationData));
 		}
 		//If we want to save the location e.g. when we come from the Searchpage or LocateMe
-		if(localStorage.detailAddButton){
-			delete localStorage.detailAddButton;
+		var addButton = w.getAndRemoveItemFromLocalStorage("detailAddButton");
+		if(addButton != false){
 			$("#detailAddButton").show();
 			$("#detailAddButton").click(function(){
 				//If Array is not set then set it
-				if(typeof(localStorage.locations) === "undefined" || localStorage.locations.length <= 0)
-					localStorage.locations = JSON.stringify(new Array());
-				var j = JSON.parse(localStorage.locations);
-				j.push(data.city.id);
-				//Delete same Locations out of Array
-				j = $.unique(j);
-				localStorage.locations = JSON.stringify(j);
+				w.setLocationInLocationList(locationData.city.id);
+				
 				//Disable Add button
 				$("#detailAddButton").addClass('ui-disabled');
-    			
-				$("#alert").html("<div id='successMessage' class='success success-style'>Location saved successfull</div>");
-				//Show successMessage for 5 seconds
-				setTimeout(function(){
-					$("#successMessage").remove();
-				},5000);
+				
+				w.toggleElementAfterNSeconds("#successMessage");
+
 			});
 		}
 		
@@ -295,8 +267,8 @@ $(document).ready(function(){
 	$("#compare").on('pagebeforeshow',function(){
 		var selected = JSON.parse(localStorage.compare);
 		delete localStorage.compare;
-		$("#leftCity").html(leftCompare(JSON.parse(localStorage[selected[0]])));
-		$("#rightCity").html(rightCompare(JSON.parse(localStorage[selected[1]])));
+		$("#leftCity").html(w.renderTemplate("detailPage",localStorage[selected[0]]));
+		$("#rightCity").html(w.renderTemplate("detailPage",localStorage[selected[1]]));
 	});    
 });
 //Array prototype for removal of multiple Values in an Array

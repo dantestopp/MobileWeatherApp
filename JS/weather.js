@@ -10,29 +10,29 @@ var weather = function(){
 		units: "metric"
 	};
 
-	_.getLocationsWithName = function(name){
+	_.getLocationsWithName = function(name, callback){
 		$.ajax({
 						url:"http://api.openweathermap.org/data/2.5/find",
 						dataType: "JSON",
 						method: "GET",
 						data: {
-							q: encodeURIComponent(name),
+							q: name,
 							APPID: _.settings.apiKey,
 							type: "like",
 							mode: "JSON"
 						}
 					}).done(function(d){
 						if(d.list.length == 0){
-							return false;
+							callback(false);
 						}
-						return d;
+						callback(null,d);
 					}).error(function(err){
-						return false;
+						callback(err);
 					});
 	};
 
 	_.getForecast = function(arr, callback){
-		var data: {
+		var data = {
 					APPID: _.settings.apiKey,
 					mode: "JSON",
 					units: _.settings.units,
@@ -44,7 +44,7 @@ var weather = function(){
 			data.lat = arr.lat;
 			data.lon = arr.lon;
 		}else{
-			return false;
+			callback(false);
 		}
 		$.ajax({
 				url: "http://api.openweathermap.org/data/2.5/forecast/daily",
@@ -52,30 +52,36 @@ var weather = function(){
 				method: "GET",
 				data: data
 			}).done(function(d){
-				return callback(false, d);
+				return callback(null, d);
 			}).error(function(err){
 				return callback(err);
 			});
 	}
 
-	_.setItemInLocalStorage = function(name,data){
-		localStorage.setItem(name, JSON.stringify(d));
+	_.setItemInLocalStorage = function(name, data){
+		localStorage.setItem(name, JSON.stringify(data));
 	};
 
 	_.getItemFromLocalStorage = function(name){
-		return JSON.parse(localStorage.getItem(name));
+		return JSON.parse(localStorage.getItem(name)) || false;
 	};
 
-	_.removeLocationInLocalStorage = function(name){
+	_.removeItemFromLocalStorage = function(name){
 		localStorage.removeItem(name);
 	};
+	_.getAndRemoveItemFromLocalStorage = function(name){
+		var value = _.getItemFromLocalStorage(name);
+		_.removeItemFromLocalStorage(name);
+		return value;
+	}
 
-	_.setLocationInLocationList = function(data){
-		if(typeof(localStorage.getItem('locations')) === "undefined" || localStorage.getItem('locations').length <= 0){
+	_.setLocationInLocationList = function(id){
+		var locations = _.getItemFromLocalStorage('locations');
+		if(locations.length <= 0 || locations == false){
 					localStorage.setItem('locations', JSON.stringify(new Array()));
 				}
 		var arr = JSON.parse(localStorage.getItem('locations'));
-		arr.push(data.city.id);
+		arr.push(id);
 		//Delete same Locations out of Array
 		arr = $.unique(arr);
 		localStorage.setItem('locations', JSON.stringify(arr));
@@ -103,7 +109,7 @@ var weather = function(){
 	};
 	
 	_.renderTemplate = function(name, data){
-		if(!name || typeof(name)!=="string" || !data || _.handlebarsTemplates.indexOf(name)<0){
+		if(!name || typeof(name)!=="string" || !data || !_.handlebarsTemplates[name]){
 			return false;
 		}
 		return _.handlebarsTemplates[name](data);
@@ -127,6 +133,19 @@ var weather = function(){
     		}
 	};
 
+	_.toggleElementAfterNSeconds = function(elementName, seconds){
+			if(!elementName && typeof(elementName)!=="string"){
+				return false;
+			}
+			if(typeof(seconds)!=="int"){
+				seconds = 5;
+			}
+			$(elementName).toggle();
+			setTimeout(function(){
+    			$(elementName).toggle();
+		   	},seconds*1000);
+	};
+
 };
 
 if (!Array.prototype.remove) {
@@ -140,3 +159,4 @@ if (!Array.prototype.remove) {
     return removedItems;
   };
 }
+var w = new weather();
